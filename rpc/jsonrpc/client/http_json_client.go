@@ -183,7 +183,7 @@ func NewWithHTTPClient(remote string, c *http.Client) (*Client, error) {
 func (c *Client) Call(ctx context.Context, method string, params, result interface{}) error {
 	id := c.nextRequestID()
 
-	request, err := rpctypes.ParamsToRequest(id, method, params)
+	request, err := rpctypes.NewRequest(id, method, params)
 	if err != nil {
 		return fmt.Errorf("failed to encode params: %w", err)
 	}
@@ -343,7 +343,7 @@ func (b *RequestBatch) Send(ctx context.Context) ([]interface{}, error) {
 // parameters, in the same way that the `Client.Call` function would.
 func (b *RequestBatch) Call(_ context.Context, method string, params, result interface{}) error {
 	id := b.client.nextRequestID()
-	request, err := rpctypes.ParamsToRequest(id, method, params)
+	request, err := rpctypes.NewRequest(id, method, params)
 	if err != nil {
 		return err
 	}
