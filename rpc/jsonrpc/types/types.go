@@ -85,7 +85,7 @@ func (req *RPCRequest) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func NewRPCRequest(id jsonrpcid, method string, params json.RawMessage) RPCRequest {
+func newRPCRequest(id jsonrpcid, method string, params json.RawMessage) RPCRequest {
 	return RPCRequest{
 		JSONRPC: "2.0",
 		ID:      id,
@@ -123,7 +123,7 @@ func ParamsToRequest(id jsonrpcid, method string, params interface{}) (RPCReques
 		return RPCRequest{}, err
 	}
 
-	return NewRPCRequest(id, method, payload), nil
+	return newRPCRequest(id, method, payload), nil
 }
 
 //----------------------------------------
